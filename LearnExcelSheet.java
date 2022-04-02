@@ -21,13 +21,20 @@ public class LearnExcelSheet {
 		//op  :2 main() - we get op as 2 row n 2 column . we convert getData()-String array[][].
 			
 		String[][] data = new String[rowCount][colCount];
-		
 		for (int i = 1; i <= rowCount; i++) {    //int i =1, 0th position value as header so 1 we take it
 			XSSFRow row = sheetAt.getRow(i);
 			
 			for (int j = 0; j < colCount; j++) {
 				XSSFCell cell = row.getCell(j);
-				String stringCellValue = cell.getStringCellValue();
+				String stringCellValue = null;
+				if(cell.getCellType()==CellType.STRING) {
+					stringCellValue=cell.getStringCellValue();
+				}else if(cell.getCellType() == CellType.NUMERIC){
+					stringCellValue=String.valueOf(cell.getNumericCellValue());
+				}else {
+					
+				}
+				
 				data[i-1][j] = stringCellValue; //i =0,so i-1 = 0-0= 0,j= 0 it take excel value as demosaleamanager
 				
 			}
